@@ -1,20 +1,4 @@
 apply plugin: 'com.android.library'
-apply plugin: 'maven'
-
-uploadArchives {
-  repositories {
-    mavenDeployer {
-      pom.groupId = 'com.ouyangzn.lib'
-      pom.artifactId = 'utils'
-      pom.version = '1.0.0-SNAPSHOT'
-      //      pom.version = '1.0.0'
-
-      repository(url: "http://192.168.60.204:8081/repository/Android-lib/") {
-        authentication(userName: "admin", password: "admin123")
-      }
-    }
-  }
-}
 
 android {
   compileSdkVersion 24
@@ -52,10 +36,11 @@ version = UTILS_VERSION
 // Maven Group ID for the artifact，对应maven的groupId,一般填你唯一的包名
 group = GROUP_ID
 
-def siteUrl = 'https://github.com/ouyangzn/BaseRecyclerAdapter'
-// 项目的主页
-def gitUrl = 'git@github.com:ouyangzn/BaseRecyclerAdapter.git'
+// 项目的主页https://github.com/ouyangzn/Android-Library.git
+def siteUrl = 'https://github.com/ouyangzn/Android-Library'
 // Git仓库的url
+def gitUrl = 'git@github.com:ouyangzn/Android-Library.git'
+
 install {
   repositories.mavenInstaller {
     // This generates POM.xml with proper parameters
@@ -120,7 +105,7 @@ javadoc {
     author true
     version UTILS_VERSION
     links "http://docs.oracle.com/javase/7/docs/api"
-    title 'BaseRecyclerAdapter'
+    title UTILS_ARTIFACT_ID_LIBRARY
   }
 }
 
