@@ -1,0 +1,42 @@
+apply plugin: 'com.android.library'
+apply plugin: 'maven'
+
+uploadArchives {
+  repositories {
+    mavenDeployer {
+      pom.groupId = 'com.ouyangzn.lib'
+      pom.artifactId = 'qr'
+      pom.version = '1.0.0-SNAPSHOT'
+      //      pom.version = '1.0.0'
+
+      repository(url: "http://192.168.60.204:8081/repository/Android-lib/") {
+        authentication(userName: "admin", password: "admin123")
+      }
+    }
+  }
+}
+
+android {
+  compileSdkVersion 24
+  buildToolsVersion "24.0.1"
+
+  defaultConfig {
+    minSdkVersion 14
+    targetSdkVersion 24
+    versionCode 1
+    versionName "1.0"
+  }
+  buildTypes {
+    release {
+      minifyEnabled false
+      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+    }
+  }
+}
+
+dependencies {
+  compile fileTree(dir: 'libs', include: ['*.jar'])
+  testCompile 'junit:junit:4.12'
+  compile 'com.android.support:appcompat-v7:24.1.1'
+  compile 'com.google.zxing:core:3.2.1'
+}
