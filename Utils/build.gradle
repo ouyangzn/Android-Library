@@ -36,7 +36,7 @@ group GROUP_ID
 version = UTILS_VERSION
 
 // 项目的主页
-def siteUrl = 'https://github.com/ouyangzn/Android-Library/tree/master/UtilsLibrary'
+def siteUrl = 'https://github.com/ouyangzn/Android-Library/tree/master/Utils'
 // Git仓库的url --> https://github.com/ouyangzn/Android-Library.git
 def gitUrl = 'git@github.com:ouyangzn/Android-Library.git'
 

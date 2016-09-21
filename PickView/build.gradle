@@ -33,7 +33,7 @@ group GROUP_ID
 version = PICK_VIEW_VERSION
 
 // 项目的主页
-def siteUrl = 'https://github.com/ouyangzn/Android-Library/tree/master/PickViewLibrary'
+def siteUrl = 'https://github.com/ouyangzn/Android-Library/tree/master/PickView'
 // Git仓库的url --> https://github.com/ouyangzn/Android-Library.git
 def gitUrl = 'git@github.com:ouyangzn/Android-Library.git'
 
