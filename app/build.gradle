@@ -27,7 +27,7 @@ dependencies {
   compile fileTree(include: ['*.jar'], dir: 'libs')
   testCompile 'junit:junit:4.12'
   compile 'com.android.support:appcompat-v7:24.1.1'
-  compile project(':PickViewLibrary')
-  compile project(':QRCodeLibrary')
-  compile project(':UtilsLibarary')
+  compile project(':PickView')
+  compile project(':QRCode')
+  compile project(':Utils')
 }

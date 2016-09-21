@@ -32,13 +32,12 @@ dependencies {
 apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
 
+group GROUP_ID
 version = UTILS_VERSION
-// Maven Group ID for the artifact，对应maven的groupId,一般填你唯一的包名
-group = GROUP_ID
 
-// 项目的主页https://github.com/ouyangzn/Android-Library.git
-def siteUrl = 'https://github.com/ouyangzn/Android-Library'
-// Git仓库的url
+// 项目的主页
+def siteUrl = 'https://github.com/ouyangzn/Android-Library/tree/master/UtilsLibrary'
+// Git仓库的url --> https://github.com/ouyangzn/Android-Library.git
 def gitUrl = 'git@github.com:ouyangzn/Android-Library.git'
 
 install {
@@ -47,6 +46,9 @@ install {
     pom {
       project {
         packaging 'aar'
+        groupId GROUP_ID
+        artifactId UTILS_ARTIFACT_ID
+        version = UTILS_VERSION
         // Add your description here 项目的描述
         name UTILS_DESCRIPTION
         url siteUrl
@@ -105,7 +107,7 @@ javadoc {
     author true
     version UTILS_VERSION
     links "http://docs.oracle.com/javase/7/docs/api"
-    title UTILS_ARTIFACT_ID_LIBRARY
+    title UTILS_ARTIFACT_ID
   }
 }
 
@@ -118,11 +120,15 @@ bintray {
   pkg {
     // 在bintray上的repository仓库名
     repo = "Android-lib"
-    // project name in jcenter工程名,对应maven的artifactId
-    name = UTILS_ARTIFACT_ID_LIBRARY
+    // project name in jcenter工程名
+    name = UTILS_ARTIFACT_ID
     websiteUrl = siteUrl
     vcsUrl = gitUrl
     licenses = ["Apache-2.0"]
     publish = true
+    version {
+      name = UTILS_VERSION
+      desc = UTILS_VERSION_DESC
+    }
   }
 }

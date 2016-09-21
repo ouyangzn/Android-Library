@@ -1,1 +1,1 @@
-include ':app', ':UtilsLibarary', ':QRCodeLibrary', ':PickViewLibrary'
+include ':app', ':Utils', ':QRCode', ':PickView'
