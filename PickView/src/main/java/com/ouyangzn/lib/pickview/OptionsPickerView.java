@@ -10,25 +10,21 @@ import java.util.ArrayList;
 
 /**
  * Created by Sai on 15/11/22.
+ * update by ouyangzn on 2016/9/27
  */
 public class OptionsPickerView<T> extends BasePickerView implements View.OnClickListener {
-  private static final String TAG_SUBMIT = "submit";
-  private static final String TAG_CANCEL = "cancel";
   WheelOptions wheelOptions;
-  private View btnSubmit, btnCancel;
   private TextView tvTitle;
   private OnOptionsSelectListener optionsSelectListener;
+  private OnCancelListener mOnCancelListener;
+
 
   public OptionsPickerView(Context context) {
     super(context);
     LayoutInflater.from(context).inflate(R.layout.pickerview_options, contentContainer);
     // -----确定和取消按钮
-    btnSubmit = findViewById(R.id.btnSubmit);
-    btnSubmit.setTag(TAG_SUBMIT);
-    btnCancel = findViewById(R.id.btnCancel);
-    btnCancel.setTag(TAG_CANCEL);
-    btnSubmit.setOnClickListener(this);
-    btnCancel.setOnClickListener(this);
+    findViewById(R.id.btnSubmit).setOnClickListener(this);
+    findViewById(R.id.btnCancel).setOnClickListener(this);
     //顶部标题
     tvTitle = (TextView) findViewById(R.id.tvTitle);
     // ----转轮
@@ -124,23 +120,28 @@ public class OptionsPickerView<T> extends BasePickerView implements View.OnClick
   }
 
   @Override public void onClick(View v) {
-    String tag = (String) v.getTag();
-    if (tag.equals(TAG_CANCEL)) {
+    int id = v.getId();
+    if (id == R.id.btnCancel) {
       dismiss();
-      return;
-    } else {
+      if (mOnCancelListener != null) {
+        mOnCancelListener.onCancel();
+      }
+    } else if (id == R.id.btnSubmit) {
+      dismiss();
       if (optionsSelectListener != null) {
         int[] optionsCurrentItems = wheelOptions.getCurrentItems();
         optionsSelectListener.onOptionsSelect(optionsCurrentItems[0], optionsCurrentItems[1],
             optionsCurrentItems[2]);
       }
-      dismiss();
-      return;
     }
   }
 
   public void setOnoptionsSelectListener(OnOptionsSelectListener optionsSelectListener) {
     this.optionsSelectListener = optionsSelectListener;
+  }
+
+  public void setOnCancelListener(OnCancelListener onCancelListener) {
+    mOnCancelListener = onCancelListener;
   }
 
   public void setTitle(String title) {
@@ -149,5 +150,9 @@ public class OptionsPickerView<T> extends BasePickerView implements View.OnClick
 
   public interface OnOptionsSelectListener {
     public void onOptionsSelect(int options1, int option2, int options3);
+  }
+
+  public interface OnCancelListener {
+    void onCancel();
   }
 }

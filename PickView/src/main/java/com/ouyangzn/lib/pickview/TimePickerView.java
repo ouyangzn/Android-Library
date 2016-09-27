@@ -12,26 +12,21 @@ import java.util.Date;
 
 /**
  * Created by Sai on 15/11/22.
+ * update by ouyangzn on 2016/9/27
  */
 public class TimePickerView extends BasePickerView implements View.OnClickListener {
-  private static final String TAG_SUBMIT = "submit";
-  private static final String TAG_CANCEL = "cancel";
-  WheelTime wheelTime;
-  private View btnSubmit, btnCancel;
+  private WheelTime wheelTime;
   private TextView tvTitle;
   private OnTimeSelectListener timeSelectListener;
+  private OnCancelListener mOnCancelListener;
 
   public TimePickerView(Activity context, Type type) {
     super(context);
 
     LayoutInflater.from(context).inflate(R.layout.pickerview_time, contentContainer);
     // -----确定和取消按钮
-    btnSubmit = findViewById(R.id.btnSubmit);
-    btnSubmit.setTag(TAG_SUBMIT);
-    btnCancel = findViewById(R.id.btnCancel);
-    btnCancel.setTag(TAG_CANCEL);
-    btnSubmit.setOnClickListener(this);
-    btnCancel.setOnClickListener(this);
+    findViewById(R.id.btnSubmit).setOnClickListener(this);
+    findViewById(R.id.btnCancel).setOnClickListener(this);
     //顶部标题
     tvTitle = (TextView) findViewById(R.id.tvTitle);
     // ----时间转轮
@@ -110,11 +105,8 @@ public class TimePickerView extends BasePickerView implements View.OnClickListen
   //    }
 
   @Override public void onClick(View v) {
-    String tag = (String) v.getTag();
-    if (tag.equals(TAG_CANCEL)) {
-      dismiss();
-      return;
-    } else {
+    int id = v.getId();
+    if (id == R.id.btnSubmit) {
       if (timeSelectListener != null) {
         try {
           Date date = WheelTime.dateFormat.parse(wheelTime.getTime());
@@ -124,12 +116,20 @@ public class TimePickerView extends BasePickerView implements View.OnClickListen
         }
       }
       dismiss();
-      return;
+    } else if (id == R.id.btnCancel) {
+      dismiss();
+      if (mOnCancelListener != null) {
+        mOnCancelListener.onCancel();
+      }
     }
   }
 
   public void setOnTimeSelectListener(OnTimeSelectListener timeSelectListener) {
     this.timeSelectListener = timeSelectListener;
+  }
+
+  public void setOnCancelListener(OnCancelListener onCancelListener) {
+    mOnCancelListener = onCancelListener;
   }
 
   public void setTitle(String title) {
@@ -141,6 +141,10 @@ public class TimePickerView extends BasePickerView implements View.OnClickListen
   }// 四种选择模式，年月日时分，年月日，时分，月日时分
 
   public interface OnTimeSelectListener {
-    public void onTimeSelect(Date date);
+    void onTimeSelect(Date date);
+  }
+
+  public interface OnCancelListener {
+    void onCancel();
   }
 }
